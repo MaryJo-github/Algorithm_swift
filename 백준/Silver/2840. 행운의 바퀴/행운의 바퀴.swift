@@ -1,8 +1,7 @@
-let input = readLine()!.split(separator: " ").map { Int(String($0))! }
+let input = readLine()!.split(separator: " ").compactMap { Int(String($0))! }
 var array = Array(repeating: "?", count: input[0])
 var start = 0
 var resultBool = true
-var result = ""
 
 for _ in 0..<input[1] {
     let line = readLine()!.split(separator: " ")
@@ -24,15 +23,14 @@ for _ in 0..<input[1] {
 }
 
 if resultBool {
-    var trueResult = ""
+    var result = ""
 
     for i in start..<start+array.count {
         let element = array[i%array.count]
         result += element
-        if element != "?" {
-            trueResult += element
-        }
     }
+
+    let trueResult = result.filter { $0 != "?" }
     if trueResult.count != Set(trueResult).count {
         print("!")
     } else {
