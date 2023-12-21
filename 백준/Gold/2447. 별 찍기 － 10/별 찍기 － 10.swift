@@ -1,7 +1,7 @@
 let n = Int(readLine()!)!
 let result = recursive(a: n)
 
-result.forEach { print($0) }
+print(result.joined(separator: "\n"))
 
 func recursive(a: Int) -> [String] {
     if a == 1 { return ["*"] }
