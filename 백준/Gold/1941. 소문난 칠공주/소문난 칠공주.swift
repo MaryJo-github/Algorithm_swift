@@ -8,15 +8,12 @@ for _ in 0..<5 {
 }
 
 findAllCombination(a: 0, choosed: [(Int, Int, Int)](), countS: 4)
-for combination in allCombination {
-    if isConnected(array: combination) { result += 1 }
-}
 print(result)
 
 func findAllCombination(a: Int, choosed: [(Int, Int, Int)], countS: Int) {
     if a == 7 {
-        if countS <= 0 {
-            allCombination.append(choosed)
+        if countS <= 0, isConnected(array: choosed) {
+            result += 1
         }
         return
     }
