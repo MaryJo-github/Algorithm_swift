@@ -1,7 +1,7 @@
 let n = Int(readLine()!)!
 var p = [Int]()
 var weight = [Int]()
-var result = [0]
+var result = 0
 
 for _ in 0..<n {
     let line = readLine()!.split(separator: " ").compactMap { Int($0) }
@@ -10,11 +10,12 @@ for _ in 0..<n {
 }
 
 recursive(a: 0, p: p)
-print(result.max()!)
+print(result)
 
 func recursive(a: Int, p: [Int]) {
     if a == n {
-        result.append(p.filter { $0 <= 0 }.count)
+        let temp = p.filter { $0 <= 0 }.count
+        result = max(temp, result)
         return
     }
 
