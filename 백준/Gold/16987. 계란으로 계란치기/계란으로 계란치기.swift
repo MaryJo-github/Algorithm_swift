@@ -34,6 +34,9 @@ func recursive(a: Int) {
 }
 
 func countEgg() {
-    let temp = p.filter { $0 <= 0 }.count
-    result = max(temp, result)
+    var count = 0
+    for egg in p {
+        if egg <= 0 { count += 1 }
+    }
+    result = max(count, result)
 }
