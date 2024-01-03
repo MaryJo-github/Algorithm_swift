@@ -9,10 +9,10 @@ for _ in 0..<n {
     weight.append(line[1])
 }
 
-recursive(a: 0, p: p)
+recursive(a: 0)
 print(result)
 
-func recursive(a: Int, p: [Int]) {
+func recursive(a: Int) {
     if a == n {
         let temp = p.filter { $0 <= 0 }.count
         result = max(temp, result)
@@ -22,12 +22,13 @@ func recursive(a: Int, p: [Int]) {
     for i in 0..<n {
         guard i != a else { continue }
         guard p[a] > 0, p[i] > 0 else {
-            recursive(a: a+1, p: p)
+            recursive(a: a+1)
             continue
         }
-        var p_ = p
-        p_[a] -= weight[i]
-        p_[i] -= weight[a]
-        recursive(a: a+1, p: p_)
+        p[a] -= weight[i]
+        p[i] -= weight[a]
+        recursive(a: a+1)
+        p[a] += weight[i]
+        p[i] += weight[a]
     }
 }
