@@ -3,11 +3,7 @@ var d = Dictionary<Int, Int>()
 
 for _ in 0..<n {
     let k = Int(readLine()!)!
-    if let temp = d[k] {
-        d[k] = temp + 1
-    } else {
-        d[k] = 1
-    }
+    d[k, default: 0] += 1
 }
 
 print(d.sorted { s1, s2 in
