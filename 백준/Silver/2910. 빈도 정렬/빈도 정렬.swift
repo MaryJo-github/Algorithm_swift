@@ -4,11 +4,7 @@ var dic = [String: (Int, Int)]()
 var result = ""
 
 for i in 0..<line[0] {
-    if dic[array[i]] == nil {
-        dic.updateValue((1, i), forKey: array[i])
-    } else {
-        dic[array[i]]!.0 += 1
-    }
+    dic[array[i], default: (0, i)].0 += 1
 }
 
 dic.sorted {
