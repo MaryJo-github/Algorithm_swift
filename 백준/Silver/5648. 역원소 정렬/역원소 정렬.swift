@@ -9,4 +9,5 @@ while count != n {
     count += line.count
 }
 
-array.compactMap { Int(String($0.reversed())) }.sorted().forEach { print($0) }
+let result = array.compactMap { Int(String($0.reversed())) }.sorted()
+print(result.map { String($0) }.joined(separator: "\n"))
