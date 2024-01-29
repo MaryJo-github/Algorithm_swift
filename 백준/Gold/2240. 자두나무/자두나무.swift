@@ -1,46 +1,24 @@
 let line = readLine()!.split(separator: " ").compactMap { Int($0) }
-var array = [Int]()
-var dp = Array(repeating: Array(repeating: [0, 0], count: line[1]+1), count: line[0])
+let t = line[0]
+let w = line[1]
+var array = [0]
+var dp = Array(repeating: Array(repeating: 0, count: w+1), count: t+1)
 
 for _ in 0..<line[0] {
     array.append(Int(readLine()!)!)
 }
 
-for i in 0..<line[0] {
-    guard i != 0 else {
-        if array[i] == 1 {
-            dp[i][0][0] = 1 // 안움직이고 먹음
-        } else {
-            dp[i][1][1] = 1 // 움직여서 먹음
-        }
-        continue
-    }
+// 한 번도 움직이지 않았을 때
+for i in 1...t {
+    dp[i][0] = dp[i-1][0] + (array[i] == 1 ? 1 : 0)
+}
 
-    if array[i] == 1 {
-        for w in 0...line[1] {
-            if w == 0 {
-                dp[i][w][0] = dp[i-1][w][0] + 1
-                dp[i][w][1] = dp[i-1][w][1]
-            } else {
-                dp[i][w][0] = max(dp[i-1][w][0], dp[i-1][w-1][1]) + 1
-                dp[i][w][1] = max(dp[i-1][w][1], dp[i-1][w-1][0])
-            }
-        }
-    } else {
-        for w in 0...line[1] {
-            if w == 0 {
-                dp[i][w][0] = dp[i-1][w][0]
-                dp[i][w][1] = dp[i-1][w][1] + 1
-            } else {
-                dp[i][w][0] = max(dp[i-1][w][0], dp[i-1][w-1][1])
-                dp[i][w][1] = max(dp[i-1][w][1], dp[i-1][w-1][0]) + 1
-            }
-        }
+// 움직였을 때
+for i in 1...t {
+    for j in 1...w {
+        // 이전에 이동을 안했거나 했거나 + 이동횟수 짝수면 1번나무아래에 있고, 홀수면 2번나무아래에 있음
+        dp[i][j] = max(dp[i-1][j-1], dp[i-1][j]) + (j % 2 + 1 == array[i] ? 1 : 0)
     }
 }
 
-var result = -1
-for w in 0...line[1] {
-    result = max(result, max(dp[line[0]-1][w][0], dp[line[0]-1][w][1]))
-}
-print(result)
+print(dp[t].max()!)
