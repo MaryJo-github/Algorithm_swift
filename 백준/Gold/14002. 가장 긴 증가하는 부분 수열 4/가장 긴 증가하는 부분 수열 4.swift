@@ -1,18 +1,12 @@
 let n = Int(readLine()!)!
 let array = readLine()!.split(separator: " ").compactMap { Int($0) }
-var dp = Array(repeating: (1, [Int]()), count: n)
-
-for i in 0..<n {
-    dp[i].1 = [array[i]]
-}
+var dp = array.map { (1, [$0]) }
 
 for i in 0..<n {
     for j in 0..<i {
-        if array[i] > array[j] {
-            if dp[i].0 < dp[j].0 + 1 {
-                dp[i].0 = dp[j].0 + 1
-                dp[i].1 = dp[j].1 + [array[i]]
-            }
+        if array[i] > array[j], dp[i].0 < dp[j].0 + 1 {
+            dp[i].0 = dp[j].0 + 1
+            dp[i].1 = dp[j].1 + [array[i]]
         }
     }
 }
