@@ -1,12 +1,12 @@
-_ = Int(readLine()!)!
-var cards = Set(readLine()!.split(separator: " "))
-_ = Int(readLine()!)!
-var array = readLine()!.split(separator: " ")
-var result = ""
+let n = Int(readLine()!)!
+let nums = readLine()!.split(separator: " ").compactMap { Int($0) }
+let numsSet = Set(nums)
+let m = Int(readLine()!)!
+let targetNums = readLine()!.split(separator: " ").compactMap { Int($0) }
+var result: [String] = []
 
-array.forEach {
-    result += cards.contains($0) ? "1" : "0"
-    result += " "
+for num in targetNums {
+    result.append(numsSet.contains(num) ? "1" : "0")
 }
 
-print(result)
+print(result.joined(separator: " "))
