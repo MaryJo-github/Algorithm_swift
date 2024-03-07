@@ -5,7 +5,8 @@ var array = readLine()!.split(separator: " ")
 var result = ""
 
 array.forEach {
-    result += "\(cards.contains($0) ? 1 : 0) "
+    result += cards.contains($0) ? "1" : "0"
+    result += " "
 }
 
 print(result)
