@@ -11,7 +11,7 @@ if n == 1 {
         if array[i] {
             primes.append(i)
 
-            for j in stride(from: i+i, through: n, by: i) {
+            for j in stride(from: i*i, through: n, by: i) {
                 array[j] = false
             }
         }
