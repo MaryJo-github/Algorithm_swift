@@ -6,20 +6,14 @@ array[1] = false
 
 if n == 1 {
     print(0)
-} else if n == 2 || n == 3 {
-    print(1)
 } else {
     for i in 2...n {
         if array[i] {
+            primes.append(i)
+
             for j in stride(from: i+i, through: n, by: i) {
                 array[j] = false
             }
-        }
-    }
-
-    for i in 0..<array.count {
-        if array[i] {
-            primes.append(i)
         }
     }
 
