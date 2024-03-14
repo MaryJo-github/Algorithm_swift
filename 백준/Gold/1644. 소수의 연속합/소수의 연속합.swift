@@ -21,18 +21,19 @@ if n == 1 {
 }
 
 func find() -> Int {
+    let count = primes.count
     var result = 0
     var end = 0
     var sum = primes[0]
 
-    for start in 0..<primes.count {
-        while end < primes.count && sum < n {
+    for start in 0..<count {
+        while end < count && sum < n {
             end += 1
-            if end != primes.count {
+            if end != count {
                 sum += primes[end]
             }
         }
-        if end == primes.count { break }
+        if end == count { break }
         if sum == n { result += 1 }
         sum -= primes[start]
     }
