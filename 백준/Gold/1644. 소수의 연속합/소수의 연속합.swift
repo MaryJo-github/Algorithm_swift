@@ -1,42 +1,46 @@
-let n = Int(readLine()!)!
-var array = Array(repeating: true, count: n+1)
-var primes = [Int]()
-array[0] = false
-array[1] = false
+func solution() {
+    let n = Int(readLine()!)!
+    var arr = Array(repeating: true, count: n+1)
+    var primes = [Int]()
 
-if n == 1 {
-    print(0)
-} else {
+    if n == 1 {
+        print("0")
+        return
+    }
+
+    arr[1] = false
+
     for i in 2...n {
-        if array[i] {
+        if arr[i] == true {
             primes.append(i)
 
             for j in stride(from: i*i, through: n, by: i) {
-                array[j] = false
+                arr[j] = false
             }
         }
     }
 
-    print(find())
-}
-
-func find() -> Int {
-    let count = primes.count
-    var result = 0
+    let m = primes.count
     var end = 0
-    var sum = primes[0]
+    var total = primes[0]
+    var result = 0
 
-    for start in 0..<count {
-        while end < count && sum < n {
+    for start in 0..<m {
+        while end < m && total <= n {
+            if total == n {
+                result += 1
+                break
+            }
             end += 1
-            if end != count {
-                sum += primes[end]
+            if end != m {
+                total += primes[end]
             }
         }
-        if end == count { break }
-        if sum == n { result += 1 }
-        sum -= primes[start]
+        if end == m { break }
+        total -= primes[start]
     }
 
-    return result
+    print(result)
 }
+
+solution()
