@@ -3,7 +3,6 @@ let n = nm[0]
 let m = nm[1]
 var graph = Array(repeating: [Int](), count: n)
 var visited = Array(repeating: false, count: n)
-var willVisit = [Int]()
 var result = 0
 
 for _ in 0..<m {
@@ -13,21 +12,18 @@ for _ in 0..<m {
 }
 
 for i in 0..<n {
-    guard !visited[i] else { continue }
-
-    willVisit.append(i)
-    while willVisit.isEmpty == false {
-        let node = willVisit.popLast()!
-
-        if !visited[node] {
-            visited[node] = true
-            for element in graph[node] {
-                guard !visited[element] else { continue }
-                willVisit.append(element)
-            }
-        }
+    if !visited[i] {
+        dfs(start: i)
+        result += 1
     }
-    result += 1
 }
 
 print(result)
+
+func dfs(start: Int) {
+    visited[start] = true
+
+    for node in graph[start] where visited[node] == false {
+        dfs(start: node)
+    }
+}
