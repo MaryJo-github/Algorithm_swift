@@ -1,7 +1,6 @@
 let n = Int(readLine()!)!
 var trees = Array(repeating: (parent: -1, lc: -1, rc: -1), count: n+1)
 var visited = Array(repeating: false, count: n+1)
-var visitCount = 0
 var totalCount = 0
 
 for _ in 0..<n {
@@ -13,7 +12,7 @@ for _ in 0..<n {
 }
 
 let lastNode = findLastNode(start: 1)
-유사중위순회(current: 1, isStart: true)
+유사중위순회(current: 1)
 print(totalCount)
 
 func findLastNode(start: Int) -> Int {
@@ -24,11 +23,8 @@ func findLastNode(start: Int) -> Int {
     return node
 }
 
-func 유사중위순회(current: Int, isStart: Bool = false) {
-    if !visited[current], !isStart {
-        visited[current] = true
-        visitCount += 1
-    }
+func 유사중위순회(current: Int) {
+    visited[current] = true
 
     let leftChild = trees[current].lc
     let rightChild = trees[current].rc
