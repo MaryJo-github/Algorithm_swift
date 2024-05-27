@@ -50,14 +50,14 @@ struct Heap<T> {
     }
 }
 
-typealias Branch = (dist: Int, index: Int)
+typealias Branch = (v: Int, w: Int)
 let ve = readLine()!.split(separator: " ").compactMap { Int($0) }
 let v = ve[0], e = ve[1]
 let k = Int(readLine()!)!
 let maxValue = Int.max
 var d = Array(repeating: maxValue, count: v)
-var graph = Array(repeating: [(v: Int, w: Int)](), count: v)
-var minHeap = Heap<Branch> { $0.dist < $1.dist }
+var graph = Array(repeating: [Branch](), count: v)
+var minHeap = Heap<Branch> { $0.w < $1.w }
 
 for _ in 0..<e {
     let input = readLine()!.split(separator: " ").compactMap { Int($0) }
@@ -65,17 +65,17 @@ for _ in 0..<e {
 }
 
 d[k-1] = 0
-minHeap.insert((d[k-1], k-1))
+minHeap.insert((k-1, d[k-1]))
 
 while minHeap.size != 0 {
     let cur = minHeap.removeFirst()!
-    if d[cur.index] != cur.dist { continue }
-    for next in graph[cur.index] {
-        if d[next.v] <= d[cur.index] + next.w {
+    if d[cur.v] != cur.w { continue }
+    for next in graph[cur.v] {
+        if d[next.v] <= d[cur.v] + next.w {
             continue
         }
-        d[next.v] = d[cur.index] + next.w
-        minHeap.insert((d[next.v], next.v))
+        d[next.v] = d[cur.v] + next.w
+        minHeap.insert((next.v, d[next.v]))
     }
 }
 
