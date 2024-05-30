@@ -51,7 +51,6 @@ struct Heap<T> {
 }
 
 typealias Branch = (v: Int, w: Int)
-typealias Result = (d: [Int], route: [Int])
 let ne = readLine()!.split(separator: " ").compactMap { Int($0) }
 let n = ne[0], e = ne[1]
 var graph = Array(repeating: [Branch](), count: n)
@@ -71,16 +70,16 @@ let rv2 = dijkstra(start: v2)
 var result = [Int]()
 
 // [case 1] 1 -> v1 -> v2 -> N
-if r.d[v1-1] != Int.max,
-rv1.d[v2-1] != Int.max,
-rv2.d[n-1] != Int.max {
-    result.append(r.d[v1-1] + rv1.d[v2-1] + rv2.d[n-1])
+if r[v1-1] != Int.max,
+rv1[v2-1] != Int.max,
+rv2[n-1] != Int.max {
+    result.append(r[v1-1] + rv1[v2-1] + rv2[n-1])
 }
 // [case 2] 1 -> V2 -> v1 -> N
-if r.d[v2-1] != Int.max,
-rv2.d[v1-1] != Int.max,
-rv1.d[n-1] != Int.max {
-    result.append(r.d[v2-1] + rv2.d[v1-1] + rv1.d[n-1])
+if r[v2-1] != Int.max,
+rv2[v1-1] != Int.max,
+rv1[n-1] != Int.max {
+    result.append(r[v2-1] + rv2[v1-1] + rv1[n-1])
 }
 
 if result.isEmpty || result.min()! == Int.max {
@@ -89,9 +88,8 @@ if result.isEmpty || result.min()! == Int.max {
     print(result.min()!)
 }
 
-func dijkstra(start: Int) -> Result {
+func dijkstra(start: Int) -> [Int] {
     var d = Array(repeating: Int.max, count: n)
-    var route = Array(repeating: 0, count: n)
     var minHeap = Heap<Branch> { $0.w < $1.w }
 
     d[start-1] = 0
@@ -103,9 +101,8 @@ func dijkstra(start: Int) -> Result {
             if d[branch.v] <= d[node.v] + branch.w { continue }
             d[branch.v] = d[node.v] + branch.w
             minHeap.insert((branch.v, d[branch.v]))
-            route[branch.v] = node.v
         }
     }
 
-    return (d, route)
+    return d
 }
